@@ -1,35 +1,16 @@
-let isUpperCase = str => str === str.toUpperCase();
-let isLowerCase = str => str === str.toLowerCase();
+let isUpperCase = str => isNaN(str) && str === str.toUpperCase();
+let isLowerCase = str => isNaN(str) && str === str.toLowerCase();
 
 export function reorder(word) {
-	const splitWord = word.split('');
+	let upperCaseLetters = '';
+	let lowerCaseLetters = '';
+	let numbers = '';
 
-	const upperCaseLetters = [];
-	const lowerCaseLetters = [];
-	const numbers = [];
-
-	for (const char of splitWord) {
-		// If char is a number
-		if (!isNaN(char)) {
-			numbers.push(char);
-			continue;
-		}
-
-		// If char is upper case
-		if (isUpperCase(char)) {
-			upperCaseLetters.push(char);
-			continue;
-		}
-
-		// If char is lower case
-		if (isLowerCase(char)) {
-			lowerCaseLetters.push(char);
-			continue;
-		}
+	for (const char of word.split('')) {
+		if (!isNaN(char)) numbers += char;
+		if (isUpperCase(char)) upperCaseLetters += char;
+		if (isLowerCase(char)) lowerCaseLetters += char;
 	}
 
-	// Constructing final word
-	const finalWord = upperCaseLetters.join('') + lowerCaseLetters.join('') + numbers.join('');
-
-	return finalWord;
+	return upperCaseLetters + lowerCaseLetters + numbers;
 }
